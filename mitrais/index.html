@@ -1,0 +1,272 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<style type="text/css">
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1; 
+  padding-top: 200px; 
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto;
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+.check{
+color:red;
+}
+</style>
+<html>
+<head>
+<title>mitrais</title>
+</head>
+<body>
+<!-- Modal content -->
+  <div class="modal" id="modal_form" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+        <button type="button" id="login" onclick="window.location.href='login.php'" class="btn btn-dark btn-lg btn-block login-button" style="background-color:purple;">Login</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+<!-- Modal content -->
+<div class="container">
+<div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card"style="border-radius:0;margin-top:10%;">
+                            <div class="card-body" style="background-color:rgba(0,0,0,.03);">
+							<p id="error" class='check'></p>
+								<div style="margin-bottom:10px; font-family:Georgia;font-size:20;">Registration </div>
+                                <form action="#" id="form_id" method="POST">
+
+                                    <div class="form-group">
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+											   <input type="text" class="form-control"  name="Code" id="Code" style="width:20%;display:inline;" readonly value="+62">
+                                                <input type="text" onkeypress="return event.charCode >= 48 && event.charCode <= 57" maxlength="13" minlength="9" class="form-control" style="width:80%;display:inline;" name="MobileNumber" id="MobileNumber" placeholder="Mobile Number" required/>											
+                                            </div>
+											<p id="check1" class='check'></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                         <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="FirstName" id="FirstName" placeholder="First Name" required/>
+                                            </div>
+											<p id="check2" class='check'></p>
+                                        </div>
+                                    </div>
+									<div class="form-group">
+                                         <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" name="LastName" id="LastName" placeholder="Last Name" required/>
+                                            </div>
+											<p id="check3" class='check'></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+									 <label for="date" class="cols-sm-2 control-label">Date of Birth</label>
+                                        <div class="cols-sm-10">                                        
+                                        <select name="MonthBirth" id="month" class="form-control" style="width:130px;display:inline;"><option value="">Month</option></select>
+										<select name="DateBirth" id="day" class="form-control" style="width:80px;display:inline;"><option value="">Day</option></select>
+										<select name="YearBirth" id="year" class="form-control" style="width:100px;display:inline;"><option value="">Year</option></select>										       
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="cols-sm-10">
+                                           
+                                               <input type="radio" name="Gender" value="male"> Male
+											   <input type="radio" style="margin-left:20;" name="Gender" value="female"> Female
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="cols-sm-10">
+                                            <div class="input-group">
+                                                <input type="email" maxlength="70" class="form-control" name="Email" id="Email" placeholder="Email" required />
+                                            </div>
+											<p id="check4" class='check'></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <button type="button" onclick="send_data()" class="btn btn-dark btn-lg btn-block login-button" style="background-color:purple;" >Register</button>
+                                    </div>
+																
+                               
+								<footer style="background-color:purple;color:#fff;margin-left:-20;margin-right:-20;margin-bottom:-36;" class="card-header">
+									<div class="footer-copyright text-center py-3">© 2019 Copyright:
+									<a href=""> danarwidoseno</a>
+									</div>
+									</footer>
+								</form>
+                            </div>
+
+                        </div>
+						
+                    </div>
+					
+                </div>
+				
+</div>
+
+<script type="text/javascript">
+var monthArray = new Array();
+monthArray[0] = "January";
+monthArray[1] = "February";
+monthArray[2] = "March";
+monthArray[3] = "April";
+monthArray[4] = "May";
+monthArray[5] = "June";
+monthArray[6] = "July";
+monthArray[7] = "August";
+monthArray[8] = "September";
+monthArray[9] = "October";
+monthArray[10] = "November";
+monthArray[11] = "December";
+for(m = 0; m <= 11; m++) {
+    var optn = document.createElement("OPTION");
+    optn.text = monthArray[m];
+    // server side month start from one
+    optn.value = (m+1);
+    document.getElementById('month').options.add(optn);
+}
+for(y = 1945; y <= new Date().getFullYear(); y++) {
+        var optn = document.createElement("OPTION");
+        optn.text = y;
+        optn.value = y;        
+        document.getElementById('year').options.add(optn);
+}
+for(d = 1; d <= 31; d++) {
+        var optn = document.createElement("OPTION");
+        optn.text = d;
+        optn.value = d;        
+        document.getElementById('day').options.add(optn);
+}
+function replaceAt(string, index, replace) {
+  return string.substring(0, index) + replace + string.substring(index + 1);
+}
+function validation(){
+var phone = document.getElementById("MobileNumber").value;
+var fname = document.getElementById("FirstName").value;
+var lname = document.getElementById("LastName").value;
+var email = document.getElementById("Email").value;
+var emailReg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+if(  phone ===''|| fname ==='' || lname ===''|| email ===''){
+//alert("Please fill in mobile number, name and email");
+var d1 = document.getElementById("MobileNumber");
+var d2 = document.getElementById("FirstName");
+var d3 = document.getElementById("LastName");
+var d4 = document.getElementById("Email");
+  if (!d1.checkValidity()) {
+    document.getElementById("check1").innerHTML = d1.validationMessage;
+  } else
+  {
+   document.getElementById("check1").innerHTML="";
+   if (document.getElementById("MobileNumber").value.substring(0, 1) ==="0")
+   {
+	   document.getElementById("MobileNumber").value=replaceAt(str =document.getElementById("MobileNumber").value,0,"");
+   }
+  }
+  if (!d2.checkValidity()) {
+    document.getElementById("check2").innerHTML = d2.validationMessage;
+  } else
+  {
+   document.getElementById("check2").innerHTML="";
+  }
+  if (!d3.checkValidity()) {
+    document.getElementById("check3").innerHTML = d3.validationMessage;
+  } else
+  {
+   document.getElementById("check3").innerHTML="";
+  }
+  if (!d4.checkValidity()) {
+    document.getElementById("check4").innerHTML = d4.validationMessage;
+  } else
+  {
+   document.getElementById("check4").innerHTML="";
+  }
+return false;
+}
+else if (!(email).match(emailReg)){
+document.getElementById("check4").innerHTML = "Email should be unique";
+return false;
+}
+
+else{
+return true;
+}
+}
+   
+$("#MobileNumber").change(function(){
+     if (document.getElementById("MobileNumber").value.substring(0, 1) ==="0")
+   {
+	   document.getElementById("MobileNumber").value=replaceAt(str =document.getElementById("MobileNumber").value,0,"");
+   }
+ });
+
+function send_data() {
+var mbirth=null;
+var dbirth=null;
+var ybirth=null;
+var gender=null;
+var phone = document.getElementById("MobileNumber").value;
+var fname = document.getElementById("FirstName").value;
+var lname = document.getElementById("LastName").value;
+if (document.getElementById("MonthBirth") != null) {
+    mbirth = document.getElementById("MonthBirth").value;
+}
+if (document.getElementById("DateBirth") != null) {
+    dbirth = document.getElementById("DateBirth").value;
+}
+if (document.getElementById("YearBirth") != null) {
+    ybirth = document.getElementById("YearBirth").value;
+}
+if (document.getElementById("Gender") != null) {
+    gender = document.getElementById("Gender").value;
+}
+var email = document.getElementById("Email").value;
+if (validation()) 
+{
+//send data
+try { 
+document.getElementById("check4").innerHTML="";
+var form_data = $('#form_id').serialize();
+var modal = document.getElementById("modal_form");
+$.ajax({				
+				url:"api/Action.php?action=insert",
+				method:"POST",
+				data:form_data,
+				success:function(data)
+				{
+					modal.style.display = "block";
+				}
+			});
+	}
+  catch(err) {
+    document.getElementById("error").innerHTML = "Error: " + err;
+  }
+	
+}
+}
+</script>
+</body>
+</html>
